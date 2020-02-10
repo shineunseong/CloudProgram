@@ -1,0 +1,119 @@
+﻿<UserControl
+    x:Class="MediCloudDrive.Views.MainListView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" mc:Ignorable="d" d:DesignHeight="350" d:DesignWidth="400">
+
+    <ListView x:Name="baseControl" ItemsSource="{Binding ListItems}" SelectedItem="{Binding SelectedItem}">
+        <ListView.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="파일">
+                    <MenuItem Header="파일 열기" Command="{Binding CmdOpenFile}" />
+                    <MenuItem Header="폴더 열기" Command="{Binding CmdOpenFolder}" />
+                </MenuItem>
+                <MenuItem Header="항목">
+                    <MenuItem Header="해당 항목 강제정리" Command="{Binding CmdClearItem}">
+                        <MenuItem.Style>
+                            <Style TargetType="MenuItem" BasedOn="{StaticResource MetroMenuItem}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedItem}" Value="null">
+                                        <Setter Property="IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.Style>
+                    </MenuItem>
+                    <MenuItem Header="전체 완료항목 정리" Command="{Binding CmdClearAll}" />
+                </MenuItem>
+            </ContextMenu>
+        </ListView.ContextMenu>
+        <ListView.ItemTemplate>
+            <ItemContainerTemplate>
+                <Grid Height="45" Margin="1,1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition Height="1" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="70" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--아이콘 출력 -->
+
+                    <iconPacks:PackIconMaterial
+                                VerticalAlignment="Center" HorizontalAlignment="Right" Grid.RowSpan="2">
+                        <iconPacks:PackIconMaterial.Style>
+                            <Style TargetType="iconPacks:PackIconMaterial">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding FileExt}" Value="PDF">
+                                        <Setter Property="Kind" Value="FilePdf" />
+                                        <Setter Property="Foreground" Value="#FFDD4848" />
+                                        <Setter Property="Height" Value="20" />
+                                        <Setter Property="Width" Value="20" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding FileExt}" Value="IMG">
+                                        <Setter Property="Kind" Value="Image" />
+                                        <Setter Property="Foreground" Value="Blue" />
+                                        <Setter Property="Height" Value="18" />
+                                        <Setter Property="Width" Value="18" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </iconPacks:PackIconMaterial.Style>
+                    </iconPacks:PackIconMaterial>
+
+                    <!--파일 이름 및 경로 출력-->
+
+                    <TextBlock Text="{Binding FileName}" Grid.Column="1" TextTrimming="CharacterEllipsis" VerticalAlignment="Bottom" Margin="5,0" />
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="10,0,0,0">
+                        <iconPacks:PackIconMaterial
+                                    Kind="FolderOpen" VerticalAlignment="Center" HorizontalAlignment="Center" Height="15" Width="15" Foreground="LightGray" />
+                        <TextBlock Text="{Binding ForderPath}" FontSize="11" Foreground="Gray"  VerticalAlignment="Center" Margin="3,0,0,0" TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+
+                    <!--전송중 로딩 애니메이션-->
+                    <Controls:ProgressRing IsActive="{Binding IsSending, UpdateSourceTrigger=PropertyChanged}" Width="25" Height="25" Grid.Column="2" Grid.RowSpan="2" />
+
+                    <!--전송상태 출력-->
+                    <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,0" FontSize="11">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SendStatusEnum}" Value="Ready">
+                                        <Setter Property="Text" Value="전송준비" />
+                                        <Setter Property="Foreground" Value="Green" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SendStatusEnum}" Value="Fail">
+                                        <Setter Property="Text" Value="전송실패" />
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SendStatusEnum}" Value="Complete">
+                                        <Setter Property="Text" Value="전송완료" />
+                                        <Setter Property="Foreground" Value="Blue" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SendStatusEnum}" Value="Sending">
+                                        <Setter Property="Text" Value="전송중" />
+                                        <Setter Property="Foreground" Value="Green" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <TextBlock Text="{Binding FileSize}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,10,0" Foreground="LightGray" />
+
+                    <!--리스트 추가 시간 출력-->
+
+                    <TextBlock Text="{Binding ListAddTime,StringFormat='{}{0:yyyy/MM/dd}'}" Grid.Row="0" Grid.Column="4" VerticalAlignment="Bottom" Foreground="Gray" />
+                    <TextBlock Text="{Binding ListAddTime,StringFormat='{}{0:hh:mm:ss}'}" Grid.Row="1" Grid.Column="4" Foreground="Gray" />
+
+                    <Rectangle Fill="LightGray" Margin="5,0" Grid.Row="2" Grid.ColumnSpan="5" />
+                </Grid>
+            </ItemContainerTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</UserControl>

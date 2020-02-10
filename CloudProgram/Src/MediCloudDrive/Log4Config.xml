@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<log4net>
+  <!--콘솔, 파일, 데이타베이스 등 여러 곳에 로그를 출력시킬 수 있는데, 이들 각각의 출력 타겟을 appender로 지정한다-->
+  <appender name="RollingFile" type="log4net.Appender.RollingFileAppender">
+    <!--<file value="C:\log.txt" /> -->
+    <!--파일명 및 경로-->
+    <!--파일명 및 경로-->
+    <file value="log\log.txt" />
+    <param name="DatePattern" value="yyyyMMdd'.txt'" />
+    <appendToFile value="true" />
+    <!--날짜 작성 방식-->
+    <!--<datePattern value="-yyyyMMdd" />-->
+    <rollingStyle value="Size" />
+    <staticlogfilename value="true" />
+    <!--백업 파일 개수 제한-->
+    <maxSizeRollBackups value="10" />
+    <!--백업 파일 크기 제한-->
+    <maximumFileSize value="5MB" />
+    <layout type="log4net.Layout.PatternLayout">
+      <!--로그에 쓰이는 문구 셋팅-->
+      <conversionPattern value="%d [%t] %-5p %c - %m%n" />
+    </layout>
+  </appender>
+
+  <root>
+    <!--value값 이상의 로그 레벨을 씀-->
+    <level value="DEBUG" />
+    <!--해당값의 appender name을 찾아 실행함. 속성을 설정한 appender의 이름과 반드시 동일해야 한다-->
+    <appender-ref ref="RollingFile" />
+  </root>
+</log4net>

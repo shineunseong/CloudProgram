@@ -1,0 +1,1 @@
+"%ProgramFiles(x86)%\NSIS\Bin\makensis.exe" "packaging.nsi" /DBIN="\Bin"

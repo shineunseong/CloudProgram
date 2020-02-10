@@ -1,0 +1,22 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MediCloudDrive.Views" x:Class="MediCloudDrive.Views.MainView" PreviewDrop="UserControl_PreviewDrop"
+    AllowDrop="True" mc:Ignorable="d" d:DesignHeight="350" d:DesignWidth="400">
+    <Grid x:Name="basegrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="2" />
+            <RowDefinition />
+            <RowDefinition Height="2" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Rectangle Fill="AliceBlue" Grid.Row="1" />
+        <Rectangle Fill="AliceBlue" Grid.Row="3" />
+        <local:MenuView x:Name="menuview" Height="30" Margin="5,0" />
+        <local:MainListView x:Name="listview" Grid.Row="2" />
+        <local:StatusView x:Name="statusview" Grid.Row="4" VerticalContentAlignment="Center" />
+        <Grid Grid.RowSpan="4"  x:Name="optionGrid" Visibility="Hidden" Background="White">
+        </Grid>
+    </Grid>
+</UserControl>

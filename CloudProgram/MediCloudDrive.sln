@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediCloudDrive", "Src\MediCloudDrive\MediCloudDrive.csproj", "{42D0024B-59CD-4A4E-BE02-6883DE902A0E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42D0024B-59CD-4A4E-BE02-6883DE902A0E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{42D0024B-59CD-4A4E-BE02-6883DE902A0E}.Debug|x86.ActiveCfg = Debug|x86
+		{42D0024B-59CD-4A4E-BE02-6883DE902A0E}.Debug|x86.Build.0 = Debug|x86
+		{42D0024B-59CD-4A4E-BE02-6883DE902A0E}.Release|Any CPU.ActiveCfg = Release|x86
+		{42D0024B-59CD-4A4E-BE02-6883DE902A0E}.Release|x86.ActiveCfg = Release|x86
+		{42D0024B-59CD-4A4E-BE02-6883DE902A0E}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3F1816C2-2AD2-4078-ADF4-BD070D6E3A0F}
+	EndGlobalSection
+EndGlobal

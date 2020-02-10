@@ -1,0 +1,35 @@
+﻿<UserControl
+    x:Class="MediCloudDrive.Views.StatusView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:convertor="clr-namespace:MediCloudDrive.Models.Converters" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d" d:DesignHeight="40" d:DesignWidth="450">
+    <UserControl.Resources>
+        <convertor:BoolToConnectStringConvertors x:Key="ConnConvert" />
+    </UserControl.Resources>
+    <Grid VerticalAlignment="Center">
+        <TextBlock HorizontalAlignment="Left" Margin="3,0,0,0">
+            <Run Text="{Binding HospitalName}" />
+            <Run Text=" (" />
+            <Run Text="{Binding CompanyID}" />
+            <Run Text=")" />
+        </TextBlock>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Visibility="Hidden">
+            <TextBlock Text="연결 : " />
+            <TextBlock Text="{Binding Path=IsConnectState, Converter={StaticResource ConnConvert}}" />
+            <Ellipse Width="15" Height="15"  Margin="5,0">
+                <Ellipse.Style>
+                    <Style TargetType="Ellipse">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsConnectState}" Value="True">
+                                <Setter Property="Fill" Value="Green" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsConnectState}" Value="False">
+                                <Setter Property="Fill" Value="Red" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Ellipse.Style>
+            </Ellipse>
+        </StackPanel>
+    </Grid>
+</UserControl>
